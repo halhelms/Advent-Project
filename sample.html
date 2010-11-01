@@ -1,0 +1,66 @@
+<html>
+   <head>
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+      <script type="text/javascript" src="/testing/Advent/advent-0.1/advent.js"></script>
+
+   </head>
+   
+   <body>
+      <div id="main"></div>
+      <div id="1">
+         <script>
+         Advent.listen( 
+            'test_event', 
+            function( response ){
+                  console.log( 'Listener A got this' );
+            }
+         );
+         </script>       
+      </div>
+      
+      <div id="2">
+         <script>
+         Advent.listen( 
+            'test_event', 
+            function( response ){
+                  console.log( 'Listener B got this' );
+            }
+         );
+         </script>       
+      </div>
+      
+      <div id="3">
+         <script>
+         Advent.listen( 
+            'test_event', 
+            function( response ){
+                  console.log( 'Listener C got this' );
+            }
+         );
+         </script>       
+      </div>
+      
+   <a href="#" id="announce_event">Announce test_event</a>
+   <a href="#" id="remove_listener">Remove listener 2</a>
+
+
+
+<script type="text/javascript">
+ 
+   Advent.log_events( true );
+
+
+   $( '#announce_event' ).click(function(){
+      Advent.announce('test_event', { name : 'Hal', email : 'hal@halhelms.com' } )
+   });
+
+   $( '#remove_listener' ).click(function(){
+      $( '#2' ).remove();
+   });
+   
+
+</script>
+
+  </body>
+
+</html>
