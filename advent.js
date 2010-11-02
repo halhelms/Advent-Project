@@ -797,6 +797,14 @@ var Advent = function(){
       };
    };
    
+   var _listener = function( fnc, id ) {
+      return function( response ){ 
+         Advent.ping( id );
+         console.log( 'I am ' + id + ' all right' ) ;
+         (fnc)();
+      }
+   };
+   
    var _log_event_object = function( event_object) {
       if ( _log_on ) {
          var tmp = "";
@@ -848,6 +856,8 @@ var Advent = function(){
       },
       
       announce : function( event_name, event_object ){
+         console.log( _listeners );
+      
          var e = Advent.event( event_name, event_object )
          _log_event_object( e )
          $( window ).trigger(
@@ -889,12 +899,13 @@ var Advent = function(){
       },
       
       listen : function( event_name, handler, listening ){
-         var obj = {};
-         obj.event_name = event_name;
-         obj.handler = handler;
-         obj.id = _createUUID();
+         var id = _createUUID();      
+         var listener_object = {};
+         listener_object[ 'event_name' ] = event_name;
+         listener_object[ 'handler' ] = _listener( handler, id );
+         listener_object[ 'id' ] = id;
          
-         _listeners.push( obj );
+         _listeners.push( listener_object );
          
          var by_listener = '';
          if ( listening ) {
@@ -910,15 +921,11 @@ var Advent = function(){
          
          $( window ).bind( 
             event_name,
-            handler
+            listener_object[ 'handler' ]
          );
          
-         $( window ).bind( 
-            'ping',
-            function(){
-               console.log( handler );
-            }
-         );         
+         // bind listen to a ping event to original handler and return it
+         
       },
       
       log : function( item ){

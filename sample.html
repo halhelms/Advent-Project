@@ -1,7 +1,7 @@
 <html>
    <head>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-      <script type="text/javascript" src="/testing/Advent/advent-0.1/advent.js"></script>
+      <script type="text/javascript" src="advent.js"></script>
 
    </head>
    
@@ -9,6 +9,7 @@
       <div id="main"></div>
       <div id="1">
          <script>
+            Advent.log_events( true );
          Advent.listen( 
             'test_event', 
             function( response ){
@@ -20,6 +21,7 @@
       
       <div id="2">
          <script>
+
          Advent.listen( 
             'test_event', 
             function( response ){
@@ -33,9 +35,9 @@
          <script>
          Advent.listen( 
             'test_event', 
-            function( response ){
-                  console.log( 'Listener C got this' );
-            }
+             function( response ){
+                console.log( 'Listener C got this' );
+             }
          );
          </script>       
       </div>
@@ -47,7 +49,7 @@
 
 <script type="text/javascript">
  
-   Advent.log_events( true );
+
 
 
    $( '#announce_event' ).click(function(){
